@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octobank - Курс валют</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+    <style>
+        .currency-calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 25px;
+        }
+        .currency-calculator h2 {
+            text-align: center;
+            font-size: 25px;
+        }
+        .currency-calculator label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+        .currency-calculator input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+        .currency-calculator button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 25px;
+        }
+        .currency-calculator button:hover {
+            background-color: #0056b3;
+            font-size: 25px;
+        }
+        .currency-rate {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            background-color: white;
+            font-size: 25px;
+        }
+        #currencyFrom{
+            font-size: 25px;
+        }
+        #currencyTo{
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul class="one">
+            <li><a href="octobank.html">О банке</a></li>
+            <li><a href="new.html">Новости</a></li>
+            <li><a href="kyrs.html">Курс валют</a></li>
+            <li><a href="contact.html">Контактные данные</a></li>
+            <li><a href="video.html">Видео</a></li>
+        </ul>
+    </header>
+    <main>
+        <h1>Калькулятор валют</h1>
+        <div class="currency-calculator">
+            <h2>Конвертер валют</h2>
+            <label for="currencyFrom">Из:</label>
+            <select id="currencyFrom">
+                <option value="RUB">RUB</option>
+            </select>
+            <label for="amountFrom">Сумма:</label>
+            <input type="number" id="amountFrom" min="0" step="0.01">
+            <label for="currencyTo">В:</label>
+            <select id="currencyTo" disabled>
+                <option value="EUR">EUR</option>
+            </select>
+            <label for="amountTo">Результат:</label>
+            <input type="number" id="amountTo" disabled>
+            <button onclick="convertCurrency()">Перевести</button>
+        </div>
+        <div class="currency-rate">
+            <h2>Актуальный курс евро к рублю:</h2>
+            <p id="euroRate">Загрузка...</p>
+            <button onclick="updateEuroRate()">Обновить</button>
+        </div>
+    </main>
+
+    <script>
+        // Функция для получения актуального курса евро к рублю
+        function getEuroRate() {
+            return fetch('https://www.cbr-xml-daily.ru/daily_json.js')
+                .then(response => response.json())
+                .then(data => data.Valute.EUR.Value / data.Valute.EUR.Nominal)
+                .catch(error => console.error('Ошибка:', error));
+        }
+
+        // Функция для обновления актуального курса и отображения его
+        function updateEuroRate() {
+            getEuroRate().then(rate => {
+                document.getElementById('euroRate').textContent = rate.toFixed(2);
+            });
+        }
+
+        // Функция для конвертации валют
+        function convertCurrency() {
+            const currencyFrom = document.getElementById('currencyFrom').value;
+            const amountFrom = document.getElementById('amountFrom').value;
+            const amountTo = document.getElementById('amountTo');
+
+            getEuroRate().then(rate => {
+                let result;
+                if (currencyFrom === 'RUB') {
+                    result = amountFrom / rate;
+                } else if (currencyFrom === 'EUR') {
+                    result = amountFrom * rate;
+                }
+                amountTo.value = result.toFixed(2);
+            });
+        }
+
+        // Заполнение списков валют
+        document.getElementById('currencyTo').disabled = false;
+
+        // Инициализация актуального курса при загрузке страницы
+        updateEuroRate();
+    </script>
+</body>
+</html>

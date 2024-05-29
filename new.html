@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Octobank - Новости</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon-16x16.png">
+    <link rel="icon" href="favicon-32x32.png">
+    <style>
+        .news-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Две колонки */
+            gap: 10px; /* Расстояние между новостями */
+            margin-bottom: 20px;
+        }
+        .news-card {
+            border: 3px solid #dddddd;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .news-card:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .news-card img {
+            margin: 0px;
+            height: 600px;
+
+        }
+        .news-card h2 {
+            margin: 0;
+            padding: 10px;
+            background-color: #f8f8f8;
+        }
+        .news-card p {
+            margin: 0;
+            background-color: #ffffff;
+        }
+        .news-card button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        .news-card button:hover {
+            background-color: #0056b3;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul class="one">
+            <li><a href="octobank.html">О банке</a></li>
+            <li><a href="new.html">Новости</a></li>
+            <li><a href="kyrs.html">Курс валют</a></li>
+            <li><a href="contact.html">Контактные данные</a></li>
+            <li><a href="video.html">Видео</a></li>
+        </ul>
+    </header>
+    <main>
+        <h1>Новости</h1>
+        <div class="news-container">
+            <!-- Новость 1 -->
+            <div class="news-card">
+                <img src="asia.png" alt="Партнер 1">
+                <h2>Asia Luxe</h2>
+                <p>Asia Luxe продала 50 % своих акций</p>
+                <button onclick="showModal('Новость 1', 'Уже устал придумывать')">Показать</button>
+            </div>
+            <!-- Новость 2 -->
+            <div class="news-card">
+                <img src="chel.jpg" alt="Партнер 1">
+                <h2>Устали от бесконечного ожидания в банке?</h2>
+                <p>Вам всего лишь нужно скачать....</p>
+                <button onclick="showModal('Новость 2', 'Вам всего лишь нужно скачать приложение мобильного банка на свой смартфон')">Показать</button>
+            </div>
+            <!-- Новость 3 -->
+            <div class="news-card">
+                <img src="bank.jpg" alt="Партнер 1">
+                <h2>Обновление</h2>
+                <p>Новое введение в банке!!!</p>
+                <button onclick="showModal('Новость 3', 'Обманууул(хахахахахахаха!)')">Показать</button>
+            </div>
+            <!-- Новость 4 -->
+            <div class="news-card">
+                <img src="remont.png" alt="Партнер 1">
+                <h2>Технический перерыв</h2>
+                <p>Банк временно не работает</p>
+                <button onclick="showModal('Новость 4', '')">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <img src="scale_1200.jpg" alt="Партнер 1">
+                <h2>Разговор вживую признали приятнее общения в интернете</h2>
+                <p>Ученые из Университета Джорджии признали, что разговор вживую приятнее общения в интернете.</p>
+                <button onclick="showModal('Новость 5', 'В ходе работы испытуемых подразделили на четыре группы, где две группы пытались представить, как они отнесутся к различным действиям, а две группы выполняли назначенные действия. Среди заданий было: поговорить с незнакомцем, тихо посидеть в одиночестве или использовать смартфон. Затем все группы оценили варианты от наиболее до наименее приятных. Самооценка чувств участников проводилась по 100-балльной шкале.')">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <img src="bankne.jpg" alt="Партнер 1">
+                <h2>Акционерное общество «Octobank»</h2>
+                <p>Octobank зарегистрирован Банком России на рынке финансовых услуг </p>
+                <button onclick="showModal('Новость 4', 'Octobank зарегистрирован Банком России на рынке финансовых услуг . Входит в реестр системы обязательного страхования вкладов. Организация позиционируется как крупный универсальный финансовый институт. Octobank осуществляет расчетно-кассовое обслуживание и предоставляет широкий спектр услуг для физических и юридических лиц, проводит операции на валютном и фондовом рынках. Octobank является участником международных платежных систем VISA и MasterСard.')">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <img src="gorod.jpg" alt="Партнер 1">
+                <h2>Сведения об информационных ресурсах Банка России</h2>
+                <p>Отделение-НБ РД Южного ГУ Банка России направляет сведения</p>
+                <button onclick="showModal('Новость 7', 'Отделение-НБ РД Южного ГУ Банка России направляет сведения об информационных ресурсах Банка России, на которых публикуются актуальные материалы о мерах Банка, ориентированных на защиту финансового рынка и ответы на вопросы о работе финансовой системы в условиях санкционных ограничений.')">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <img src="friend.jpg" alt="Партнер 1">
+                <h2>Борьба банков с дропперами: риск блокировок и эффективные меры</h2>
+                <p>Борьба с дропперами: меры российских банков</p>
+                <button onclick="showModal('Новость 8', 'Ведущие российские банки активизировали борьбу с дропперами, которые используют свои карты в качестве инструмента для вывода украденных денег. Специалисты, опрошенные журналом РБК, предупреждают о возможности блокировки счетов честных клиентов банков.')">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <img src="oxpana.jpg" alt="Партнер 1">
+                <h2>В Череповце задержали организаторов подпольного казино с доходом в 30 млн рублей</h2>
+                <p>В Череповце бойцы спецназа задержали членов организованной преступной группы (ОПГ)</p>
+                <button onclick="showModal('Новость 4', 'Были задержаны три человека, включая лидера ОПГ. Вместе они организовали работу около 14 игровых залов. Так, правоохранителями были изъяты черная бухгалтерия, долговые расписки игроков и более 300 игровых автоматов.В нелегальных казино и на местах жительства задержанных проведены обыски. Следователями возбуждено уголовное дело по ч. 2 ст. 171 УК РФ «Незаконные организация и проведение азартных игр».10 апреля сотрудников нелегального казино задержали в Новосибирске. Уточнялось, что заведение располагалось в подвальном помещении жилого дома.')">Показать</button>
+            </div>
+
+            <div class="news-card">
+                <img src="zaderj.jpg" alt="Партнер 1">
+                <h2>Черная пятница Белых</h2>
+                <p>Задержание Белых может быть связано </p>
+                <button onclick="showModal('Новость 4', 'Главу Кировской области Никиту Белых задержали за взятку в 400 тыс. евро. Его бывший заместитель Сергей Карнаухов связывает задержание с кировским бизнесменом Альбертом Ларицким, арестованным за мошенничество. Белых — один из бывших лидеров оппозиционного «Союза правых сил». Он стал губернатором в 2009 году при президентстве Дмитрия Медведева и считался политиком из пула системных либералов, лояльных Кремлю')">Показать</button>
+            </div>
+            <!-- Добавляйте остальные новости здесь -->
+        </div>
+    </main>
+
+    <!-- Модальное окно -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="hideModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <script>
+        function showModal(title, text) {
+            document.getElementById('myModal').style.display = "block";
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = text;
+        }
+
+        function hideModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        // Закрываем модальное окно при клике за пределами
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('myModal')) {
+                hideModal();
+            }
+        }
+    </script>
+</body>
+</html>
